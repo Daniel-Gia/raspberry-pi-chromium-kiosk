@@ -1,0 +1,17 @@
+services:
+  admin-panel:
+    image: danielgiacobelli/raspberry-pi-chromium-kiosk-admin-panel:latest
+    pull_policy: always
+    restart: unless-stopped
+    network_mode: host
+
+    environment:
+      DEFAULT_URL_FILE: /settings/default_url.txt
+      CHROME_REMOTE_URL: http://127.0.0.1:9222
+
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      ADMIN_PANEL_USERNAME: ${ADMIN_PANEL_USERNAME}
+      ADMIN_PANEL_PASSWORD_HASH: ${ADMIN_PANEL_PASSWORD_HASH}
+
+    volumes:
+      - ./settings:/settings

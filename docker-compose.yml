@@ -1,6 +1,6 @@
 services:
   admin-panel:
-    image: danielgiacobelli/raspberry-pi-chromium-kiosk-admin-panel:latest
+    image: ghcr.io/daniel-gia/raspberry-pi-chromium-kiosk-admin-panel:latest
     pull_policy: always
     restart: unless-stopped
     network_mode: host

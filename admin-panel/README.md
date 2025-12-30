@@ -11,5 +11,5 @@ docker buildx build --platform linux/arm64 -t ${REPO}:latest -f Dockerfile . --p
 
 Example:
 ```sh
-docker buildx build --platform linux/arm64 -t danielgiacobelli/raspberry-pi-chromium-kiosk-admin-panel:latest -f Dockerfile . --push
+docker buildx build --platform linux/arm64 -t ghcr.io/daniel-gia/raspberry-pi-chromium-kiosk-admin-panel:latest -f Dockerfile . --push
 ```

@@ -47,7 +47,7 @@ After reboot:
 ## Project folder structure
 
 - `docker-compose.yml`  
-  Runs the **admin-panel** using the image from https://hub.docker.com/r/danielgiacobelli/raspberry-pi-chromium-kiosk-admin-panel
+  Runs the **admin-panel** using the image from ghcr.io/daniel-gia/raspberry-pi-chromium-kiosk-admin-panel
 
 - `settings/`  
   - `default_url.txt` — the URL the kiosk opens on start (and what the admin panel edits)

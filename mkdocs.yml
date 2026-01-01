@@ -3,13 +3,15 @@ site_name: Raspberry Pi Chromium Kiosk - docs
 nav:
   - Home: index.md
   - How to get started: getting-started.md
-  - Project structure: project-structure.md
+  - Contribute:
+      - First steps: contribute/first-steps.md
+      - Understand project structure: contribute/understand-project-structure.md
+      - Create an issue: contribute/create-an-issue.md
+      - Create a PR: contribute/create-a-pr.md
+      - Update docs: contribute/update-docs.md
 
 theme:
   name: material
-  font:
-    text: Merriweather Sans
-    code: Red Hat Mono
   logo: assets/images/logo-small.png
   favicon: assets/images/logo-small.png
 

@@ -1,0 +1,67 @@
+site_name: Raspberry Pi Chromium Kiosk - docs
+
+nav:
+  - Home: index.md
+  - How to get started: getting-started.md
+  - Project structure: project-structure.md
+
+theme:
+  name: material
+  font:
+    text: Merriweather Sans
+    code: Red Hat Mono
+  logo: assets/images/logo-small.png
+  favicon: assets/images/logo-small.png
+
+  features:
+    - navigation.footer
+    - content.code.copy
+
+  palette:
+    # Light mode
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: dark mode
+    # Dark mode
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: light mode
+
+extra_css:
+  - stylesheets/custom.css
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Daniel-Gia/raspberry-pi-chromium-kiosk
+      name: GitHub
+
+copyright: Copyright &copy; 2025 All rights reserved.

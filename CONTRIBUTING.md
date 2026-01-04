@@ -68,7 +68,7 @@ Thanks for contributing to **raspberry-pi-chromium-kiosk**.
 >
 > 2) Update the root `docker-compose.yml` to pull **your** image (`${REPO}:latest`).
 >
-> 3) On the Pi, pull **your fork** (or your branch), run the setup with your image (should work just by updating docker compose)
+> 3. On the Pi, pull **your fork** (or your branch), and run the manual setup (not the one command one) with your image (this should work just by updating `docker-compose.yml`).
 
 ### PR expectations
 

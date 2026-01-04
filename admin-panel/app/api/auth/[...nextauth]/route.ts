@@ -11,10 +11,15 @@ type AuthInfo = {
 
 const readAuthEnv = (): AuthInfo | null => {
     const username = process.env.ADMIN_PANEL_USERNAME;
-    const passwordHash = process.env.ADMIN_PANEL_PASSWORD_HASH;
+    let passwordHash = process.env.ADMIN_PANEL_PASSWORD_HASH;
 
     if (typeof username !== "string" || username.trim() === "") return null;
     if (typeof passwordHash !== "string" || passwordHash.trim() === "") return null;
+
+    // When running locally using npm, we might get the double escaped string from .env so we fix it here
+    if (passwordHash.startsWith("$$")) {
+        passwordHash = passwordHash.replace(/\$\$/g, "$");
+    }
 
     return {
         username: username.trim(),

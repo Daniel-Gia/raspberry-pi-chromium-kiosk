@@ -45,11 +45,6 @@ curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kio
 
 *Replace `<username>` and `<password>` with your desired admin panel credentials.*
 
-This script will:
-1. Install dependencies (Docker, Kiosk service, etc.)
-2. Configure the system
-3. Set your admin credentials
-
 Once finished, **reboot** your Pi:
 ```sh
 sudo reboot
@@ -58,10 +53,6 @@ sudo reboot
 ### Manual Install
 
 If you prefer to clone the repo and run scripts manually, please see the [Manual Setup Guide](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/getting-started/).
-8. Reboot:
-   ```sh
-   sudo reboot
-   ```
 
 After reboot:
 - The **kiosk browser** should start automatically on the Pi.
@@ -73,12 +64,16 @@ After reboot:
     - `http://<pi-ip>`
     - Example: `http://192.168.1.50`
 
+## How to contribute
+
+- Start with reading [first steps](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/contribute/first-steps/)
+- Setup the environment and make a fork - read [here](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/contribute/setup-environment/)
+- Understand how to test changes on your pi locally - read [here](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/contribute/test-locally/)
+- How to build the admin panel docker image (used in production) - See `admin-panel/README.md`.
+
 ## License
 
 Licensed under the **Apache License 2.0 (Apache-2.0)**. See `LICENSE` and `NOTICE`.
-
-## How to build the admin panel docker image
-See `admin-panel/README.md`.
 
 ---
 

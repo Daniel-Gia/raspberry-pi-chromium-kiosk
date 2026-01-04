@@ -13,7 +13,7 @@ This project turns a Raspberry Pi into a **Chromium kiosk** that boots straight 
 ## Where to go next
 
 - Read [How to get started](getting-started.md) for Raspberry Pi setup steps.
-- See [Project structure](project-structure.md) for a guided walkthrough of the repository layout.
+- If you want to contribute see [First Steps](/contribute/first-steps/).
 
 ## License
 

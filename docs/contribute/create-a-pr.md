@@ -27,17 +27,7 @@
 
 !!! tip "Test admin-panel changes on your Raspberry Pi"
 
-    If you change anything in the **admin panel**, the easiest way to test it on a Raspberry Pi is to build and push your own ARM64 image (e.g. to Docker Hub), then point the Pi to that image.
-
-    1. Build + push an ARM64 image (run from the `admin-panel/` directory):
-
-        ```sh
-        docker buildx build --platform linux/arm64 -t ${REPO}:latest -f Dockerfile . --push
-        ```
-
-    2. Update the root `docker-compose.yml` to pull **your** image (`${REPO}:latest`).
-
-    3. On the Pi, pull **your fork** (or your branch), and run the [manual setup](/getting-started/) with your image (this should work just by updating `docker-compose.yml`).
+    If you change anything in the **admin panel**, the easiest way to test it is to follow this steps [test changes locally](/contribute/test-locally)
 
 ### PR expectations
 

@@ -1,5 +1,9 @@
 # Admin Panel
 
+## How is it made
+
+Currently the admin panel is made using Nextjs so if you are not familiar with Nextjs we recommend understanding it first.
+
 ## Build & push (ARM64 / Raspberry Pi)
 
 From inside this `admin-panel/` directory, build and push the image:

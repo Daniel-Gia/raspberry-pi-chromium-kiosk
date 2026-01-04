@@ -2,8 +2,8 @@
 
 This repository is split into a few clearly separated parts:
 
-- **Kiosk runtime** (systemd service + shell scripts)
-- **Admin panel** (Next.js app, deployed via Docker Compose)
+- **Chromium Kiosk** (systemd service + shell scripts that run on boot)
+- **Admin panel** (Next.js app, run using Docker Compose)
 - **Settings** (the kiosk URL)
 - **Setup** (scripts + service installation)
 
@@ -18,6 +18,7 @@ raspberry-pi-chromium-kiosk/
 │  ├─ Dockerfile
 │  ├─ package.json
 │  ├─ next.config.ts
+│  ├─ middleware.ts
 │  └─ app/
 │     ├─ api/
 │     │  ├─ auth/[...nextauth]/route.ts
@@ -34,12 +35,17 @@ raspberry-pi-chromium-kiosk/
 │  └─ default_url.txt
 ├─ setup/
 │  ├─ admin-panel.service
+│  ├─ admin-panel-dev.service
 │  ├─ generate-admin-login.sh
+│  ├─ install.sh
 │  └─ setup.sh
 └─ docs/
    ├─ index.md
    ├─ getting-started.md
-   └─ project-structure.md
+   └─ contribute/
+      ├─ create-a-pr.md
+      ├─ setup-environment.md
+      └─ ...
 ```
 
 ## Key parts explained
@@ -79,8 +85,16 @@ Runs the admin panel container
 
 Automation for a fresh Pi install.
 
+- `install.sh`
+    - The script used when installing the project with 
+    ```sh 
+    curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup install.sh | sudo bash -s -- <username> <password>
+    ```
 - `setup.sh`
+    - Sets up the environment.
 - `generate-admin-login.sh`
     - Creates the admin credentials used by the admin panel.
 - `admin-panel.service`
-    - systemd service template for running the docker container with the admin panel on boot
+    - systemd service template for running the docker container with the admin panel on boot.
+- `admin-panel-dev.service`
+    - systemd service template for running the admin panel in development mode.

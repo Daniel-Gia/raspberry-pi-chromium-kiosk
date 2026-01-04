@@ -5,10 +5,13 @@ nav:
   - How to get started: getting-started.md
   - Contribute:
       - First steps: contribute/first-steps.md
+      - Set up development environment: contribute/setup-environment.md
+      - Test Changes Locally: contribute/test-locally.md
       - Understand project structure: contribute/understand-project-structure.md
       - Create an issue: contribute/create-an-issue.md
       - Create a PR: contribute/create-a-pr.md
       - Update docs: contribute/update-docs.md
+      - Ask for help: contribute/ask-for-help.md
 
 theme:
   name: material

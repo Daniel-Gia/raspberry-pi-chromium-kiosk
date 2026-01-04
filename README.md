@@ -34,34 +34,25 @@ A Raspberry Pi kiosk setup that boots straight into **Chromium in kiosk mode**, 
 > https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/getting-started/
 
 1. Install **Raspberry Pi OS Lite** (using the official Raspberry Pi imaging tool)
-2. Install git:
-   ```sh
-   sudo apt install git
-   ```
-3. Clone the repository:
-   ```sh
-   sudo git clone https://github.com/Daniel-Gia/raspberry-pi-chromium-kiosk.git
-   ```
-4. Go to the setup folder:
-   ```sh
-   cd raspberry-pi-chromium-kiosk/setup
-   ```
-5. Make the setup script executable:
-   ```sh
-   sudo chmod +x setup.sh
-   ```
-6. Run the setup:
-   ```sh
-   sudo ./setup.sh
-   ```
-7. Generate admin panel login credentials:
-   ```sh
-   sudo ./generate-admin-login.sh {username} {password}
-   ```
-8. Reboot:
-   ```sh
-   sudo reboot
-   ```
+
+### Quick Install (Recommended)
+
+Run this single command on your Raspberry Pi to install everything:
+
+```sh
+curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash -s -- <username> <password>
+```
+
+*Replace `<username>` and `<password>` with your desired admin panel credentials.*
+
+Once finished, **reboot** your Pi:
+```sh
+sudo reboot
+```
+
+### Manual Install
+
+If you prefer to clone the repo and run scripts manually, please see the [Manual Setup Guide](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/getting-started/).
 
 After reboot:
 - The **kiosk browser** should start automatically on the Pi.
@@ -73,12 +64,16 @@ After reboot:
     - `http://<pi-ip>`
     - Example: `http://192.168.1.50`
 
+## How to contribute
+
+- Start with reading [first steps](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/contribute/first-steps/)
+- Setup the environment and make a fork - read [here](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/contribute/setup-environment/)
+- Understand how to test changes on your pi locally - read [here](https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/contribute/test-locally/)
+- How to build the admin panel docker image (used in production) - See `admin-panel/README.md`.
+
 ## License
 
 Licensed under the **Apache License 2.0 (Apache-2.0)**. See `LICENSE` and `NOTICE`.
-
-## How to build the admin panel docker image
-See `admin-panel/README.md`.
 
 ---
 

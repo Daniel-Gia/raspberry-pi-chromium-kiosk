@@ -1,0 +1,17 @@
+[Unit]
+Description=Admin Panel Dev Service (npm)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@REPO_DIR@/admin-panel
+Environment=PORT=80
+EnvironmentFile=@REPO_DIR@/.env
+# Run Next.js in dev mode on port 80, accessible from network
+ExecStart=/usr/bin/npm run dev -- -p 80 -H 0.0.0.0
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

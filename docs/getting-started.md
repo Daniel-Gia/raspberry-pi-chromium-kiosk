@@ -10,27 +10,14 @@
 !!! note "Terminal access"
     You’ll need terminal access to the Pi for the steps below — either connect a keyboard for a local terminal, or SSH into the Pi from another machine.
 
-1. Install Git:
-    ```sh
-    sudo apt update
-    sudo apt install git
-    ```
-
-2. Clone the repository:
+1. Run the installer:
    ```sh
-   sudo git clone https://github.com/Daniel-Gia/raspberry-pi-chromium-kiosk.git
+   curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/bootstrap.sh | sudo bash
    ```
 
-3. Run the setup script:
+2. Generate admin panel login credentials:
    ```sh
-   cd raspberry-pi-chromium-kiosk/setup
-   sudo chmod +x setup.sh
-   sudo ./setup.sh
-   ```
-
-4. Generate admin panel login credentials:
-   ```sh
-   sudo ./generate-admin-login.sh {username} {password}
+   sudo /opt/raspberry-pi-chromium-kiosk/setup/generate-admin-login.sh {username} {password}
    ```
 
 5. Reboot:

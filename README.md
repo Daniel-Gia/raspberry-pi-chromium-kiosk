@@ -34,29 +34,13 @@ A Raspberry Pi kiosk setup that boots straight into **Chromium in kiosk mode**, 
 > https://daniel-gia.github.io/raspberry-pi-chromium-kiosk/getting-started/
 
 1. Install **Raspberry Pi OS Lite** (using the official Raspberry Pi imaging tool)
-2. Install git:
+2. Run the installer:
    ```sh
-   sudo apt install git
+   curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/bootstrap.sh | sudo bash
    ```
-3. Clone the repository:
+3. Generate admin panel login credentials:
    ```sh
-   sudo git clone https://github.com/Daniel-Gia/raspberry-pi-chromium-kiosk.git
-   ```
-4. Go to the setup folder:
-   ```sh
-   cd raspberry-pi-chromium-kiosk/setup
-   ```
-5. Make the setup script executable:
-   ```sh
-   sudo chmod +x setup.sh
-   ```
-6. Run the setup:
-   ```sh
-   sudo ./setup.sh
-   ```
-7. Generate admin panel login credentials:
-   ```sh
-   sudo ./generate-admin-login.sh {username} {password}
+   sudo /opt/raspberry-pi-chromium-kiosk/setup/generate-admin-login.sh {username} {password}
    ```
 8. Reboot:
    ```sh

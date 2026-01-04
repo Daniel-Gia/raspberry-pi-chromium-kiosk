@@ -37,7 +37,7 @@
 
     2. Update the root `docker-compose.yml` to pull **your** image (`${REPO}:latest`).
 
-    3. On the Pi, pull **your fork** (or your branch), and run the setup with your image (this should work just by updating `docker-compose.yml`).
+    3. On the Pi, pull **your fork** (or your branch), and run the [manual setup](/getting-started/) with your image (this should work just by updating `docker-compose.yml`).
 
 ### PR expectations
 

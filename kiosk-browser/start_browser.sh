@@ -14,6 +14,15 @@ if [ -z "$START_URL" ]; then
   START_URL="http://localhost/show-ip"
 fi
 
+# If START_URL is localhost, wait for it to be accessible (any response is fine)
+if [[ "$START_URL" == http://localhost* ]]; then
+  echo "Waiting for localhost to respond..."
+  until curl -s --head --request GET http://localhost > /dev/null; do
+    sleep 1
+  done
+  echo "Localhost is responding."
+fi
+
 CHROMIUM_CMD="chromium \
   --ozone-platform=wayland \
   --enable-features=UseOzonePlatform \

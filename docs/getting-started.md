@@ -10,50 +10,19 @@
 !!! note "Terminal access"
     You’ll need terminal access to the Pi for the steps below — either connect a keyboard for a local terminal, or SSH into the Pi from another machine.
 
-=== "Automatic (Recommended)"
 
-    Run the following command to download and install everything automatically:
+Run the following command to download and install everything automatically:
 
-    ```sh
-    curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash -s -- <username> <password>
-    ```
+```sh
+curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash -s -- <username> <password>
+```
 
-    *Replace `<username>` and `<password>` with the credentials you want to use for the Admin Panel.*
+*Replace `<username>` and `<password>` with the credentials you want to use for the Admin Panel.*
 
-    Once the script finishes, reboot.
-    ```sh
-    sudo reboot
-    ```
-
-=== "Manual"
-
-    1. Install Git:
-        ```sh
-        sudo apt update
-        sudo apt install git
-        ```
-
-    2. Clone the repository:
-       ```sh
-       sudo git clone https://github.com/Daniel-Gia/raspberry-pi-chromium-kiosk.git
-       ```
-
-    3. Run the setup script:
-       ```sh
-       cd raspberry-pi-chromium-kiosk/setup
-       sudo chmod +x setup.sh
-       sudo ./setup.sh
-       ```
-
-    4. Generate admin panel login credentials:
-       ```sh
-       sudo ./generate-admin-login.sh {username} {password}
-       ```
-
-    5. Reboot:
-       ```sh
-       sudo reboot
-       ```
+Once the script finishes, reboot.
+```sh
+sudo reboot
+```
 
 ## After reboot
 - The **kiosk browser** should start automatically.

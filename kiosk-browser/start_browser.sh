@@ -34,13 +34,5 @@ CHROMIUM_CMD="chromium \
   --noerrdialogs \
   --disable-infobars"
 
-# Hide cursor by moving it off-screen keep retrying if it fails.
-(
-  for _ in $(seq 1 60); do
-    if wlrctl pointer move 99999 99999 2>/dev/null; then
-      exit 0
-    fi
-    sleep 0.25
-  done
-) &
+(sleep 3; wlrctl pointer move 2000 2000) &
 exec labwc -s "$CHROMIUM_CMD $START_URL"

@@ -40,6 +40,8 @@ else
     sudo systemctl enable --now docker
 
     echo "4) Pulling latest Docker images..."
+
+    export IMAGE_TAG=$(grep -oP '^IMAGE_TAG=\K.*' /etc/environment)
     docker compose -f "$REPO_DIR/docker-compose.yml" pull
 fi
 

@@ -32,11 +32,16 @@ PASSWORD_HASH="$(htpasswd -bnBC 10 "" "$PASSWORD" | cut -d: -f2 | tr -d '\r\n')"
 # $2b$10$Abc... -> $$2b$$10$$Abc... -> so that when Docker Compose reads it, it becomes $2b$10$Abc...
 PASSWORD_HASH="$(printf '%s' "$PASSWORD_HASH" | sed 's/\$/\$\$/g')"
 
+# Ensure no duplicate entries exist in the .env file (remove old ones)
+sed -i "/^ADMIN_PANEL_USERNAME=/d" "$ENV_FILE"
+sed -i "/^ADMIN_PANEL_PASSWORD_HASH=/d" "$ENV_FILE"
+sed -i "/^NEXTAUTH_SECRET=/d" "$ENV_FILE"
+
 {
   echo "ADMIN_PANEL_USERNAME=$USERNAME"
   echo "ADMIN_PANEL_PASSWORD_HASH=$PASSWORD_HASH"
   echo "NEXTAUTH_SECRET=$NEXTAUTH_SECRET"
-} > "$ENV_FILE"
+} >> "$ENV_FILE"
 
 chmod 600 "$ENV_FILE" 2>/dev/null || true
 

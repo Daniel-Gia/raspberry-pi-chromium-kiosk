@@ -41,8 +41,16 @@ else
 
     echo "4) Pulling latest Docker images..."
 
-    export IMAGE_TAG=$(grep -oP '^IMAGE_TAG=\K.*' /etc/environment)
-    docker compose -f "$REPO_DIR/docker-compose.yml" pull
+    # Ensure .env file is used for Docker Compose
+    if [ -f "$REPO_DIR/.env" ]; then
+      echo "Using .env file for Docker Compose."
+      export $(grep -v '^#' "$REPO_DIR/.env" | xargs) # export variables from .env
+      echo "IMAGE_TAG being used: $IMAGE_TAG"
+    else
+      echo ".env file not found. Using default 'latest' tag for Docker Compose."
+    fi
+
+    docker compose --env-file "$REPO_DIR/.env" -f "$REPO_DIR/docker-compose.yml" pull
 fi
 
 echo "5) Running kiosk-browser setup..."

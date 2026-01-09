@@ -21,6 +21,7 @@ StandardError=journal
 ExecStart=@SCRIPT_DIR@/start_browser.sh
 Restart=always
 RestartSec=2
+EnvironmentFile=/etc/environment
 
 [Install]
 WantedBy=multi-user.target

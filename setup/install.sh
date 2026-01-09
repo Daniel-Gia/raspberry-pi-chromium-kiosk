@@ -63,10 +63,6 @@ else
     echo "Pinned Docker image to: latest"
 fi
 
-# Make IMAGE_TAG permanent so that we dont pull latest unintentionally in future runs
-echo "IMAGE_TAG=$RELEASE_TAG" | sudo tee -a /etc/environment
-source /etc/environment
-
 echo "Running setup script..."
 cd "$INSTALL_DIR"
 chmod +x setup/setup.sh

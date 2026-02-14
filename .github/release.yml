@@ -12,6 +12,9 @@ changelog:
     - title: 'Docs 📚'
       labels:
         - documentation
+    - title: 'Dependencies 📦'
+      labels:
+        - dependencies
     - title: 'Other Changes 🔧'
       labels:
         - '*'

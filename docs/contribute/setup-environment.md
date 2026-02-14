@@ -5,8 +5,8 @@
 1. **Fork the repository**: On GitHub, click **Fork** to create your own copy of the repo.
 2. **Clone your fork**: Open your fork in your preferred git client (e.g., GitHub Desktop, VS Code) and clone it.
 3. **Create a branch**:
-    - Switch to the **`dev`** branch.
-    - Create a new branch from `dev` using one of these prefixes:
+    - Switch to the **`main`** branch.
+    - Create a new branch from `main` using one of these prefixes:
         - `feature/<short-description>`
         - `fix/<short-description>`
         - `docs/<short-description>`

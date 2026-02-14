@@ -11,10 +11,10 @@
 ### Steps
 1. On GitHub, click **Fork** to create your own copy of the repo.
 2. Open **your fork** in GitHub Desktop and clone it.
-3. Switch to the **`dev`** branch.
+3. Switch to the **`main`** branch.
     - If you don’t see it locally, use GitHub Desktop to fetch/pull the latest branches from the remote.
 4. Create a new branch named like `feature/...`, `fix/...`, or `docs/...`.
-    - Create the branch from `dev` (not `main`).
+    - Create the branch from `main`.
 5. Make your changes locally.
 6. Commit your changes in GitHub Desktop.
 7. Push the branch to **your fork**.

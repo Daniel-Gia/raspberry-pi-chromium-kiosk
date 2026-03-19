@@ -34,9 +34,9 @@ CHROMIUM_CMD="chromium \
   --noerrdialogs \
   --disable-infobars"
 
-# Hide cursor by moving it off-screen keep retrying if it fails.
+# Hide cursor by moving it off-screen, retry indefinitely until it succeeds.
 (
-  for _ in $(seq 1 60); do
+  while true; do
     if wlrctl pointer move 99999 99999 2>/dev/null; then
       exit 0
     fi

@@ -1,24 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
 import { getToken } from "next-auth/jwt";
+import { getCurrentUrl, saveUrl } from "@/lib/settings";
 
 export const runtime = "nodejs"; //just to be safe
 
-const DEFAULT_URL_FILE_PATH = process.env.DEFAULT_URL_FILE ?? path.join(process.cwd(), "..", "settings", "default_url.txt");
-
 const CHROME_REMOTE_BASE_URL = process.env.CHROME_REMOTE_URL ?? "http://127.0.0.1:9222";
-
-const readCurrentUrl = async (): Promise<string> => {
-    try {
-        const firstLine = (await readFile(DEFAULT_URL_FILE_PATH, "utf8")).split(/\r?\n/)[0];
-        return (firstLine ?? "").trim();
-    } catch {
-        return "";
-    }
-};
-
 
 // Gets the current URL
 export const GET = async (req: NextRequest) => {
@@ -26,8 +13,14 @@ export const GET = async (req: NextRequest) => {
     if (!token) {
         return NextResponse.json<{ error: string }>({ error: "Unauthorized" }, { status: 401 });
     }
-    const url = await readCurrentUrl();
-    return NextResponse.json<{ url: string }>({ url }, { status: 200 });
+
+    try {
+        const url = await getCurrentUrl();
+        return NextResponse.json<{ url: string }>({ url }, { status: 200 });
+    } catch (error) {
+        console.error("Failed to read kiosk URL", error);
+        return NextResponse.json({ error: "Could not load the kiosk URL." }, { status: 500 });
+    }
 };
 
 const normalizeHttpUrl = (input: string): string => {
@@ -39,10 +32,6 @@ const normalizeHttpUrl = (input: string): string => {
     return parsed.toString();
 };
 
-const saveUrlToFile = async (url: string): Promise<void> => {
-    await writeFile(DEFAULT_URL_FILE_PATH, `${url}\n`, "utf8");
-};
-
 const openUrlInChromium = async (url: string): Promise<void> => {
     const endpoint = `${CHROME_REMOTE_BASE_URL}/json/new?${encodeURIComponent(url)}`;
     const response = await fetch(endpoint, { method: "PUT" });
@@ -51,13 +40,13 @@ const openUrlInChromium = async (url: string): Promise<void> => {
     }
 };
 
-
 // Sets a new URL
 export const POST = async (req: NextRequest) => {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token) {
         return NextResponse.json<{ error: string }>({ error: "Unauthorized" }, { status: 401 });
     }
+
     const body = await req.json().catch(() => null);
     if (!body || typeof body.url !== "string") {
         return NextResponse.json<{ error: string }>({ error: "Invalid request body." }, { status: 400 });
@@ -71,10 +60,18 @@ export const POST = async (req: NextRequest) => {
     }
 
     try {
-        await saveUrlToFile(normalizedUrl);
+        await saveUrl(normalizedUrl);
+    } catch (err) {
+        console.error("Failed to save kiosk URL", err);
+        return NextResponse.json({ error: "Could not save the kiosk URL." }, { status: 500 });
+    }
+
+    try {
         await openUrlInChromium(normalizedUrl);
     } catch (err) {
-        return NextResponse.json<{ error: string }>({ error: (err as Error).message }, { status: 500 });
+        console.error("Failed to navigate Chromium", err);
+        return NextResponse.json({ error: "URL saved, but Chromium could not open it." }, { status: 502 });
     }
+
     return new Response(null, { status: 200 });
 };

@@ -3,17 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "prisma generate && prisma migrate deploy",
     "dev": "next dev",
+    "prebuild": "prisma generate",
     "build": "next build",
+    "prestart": "prisma generate && prisma migrate deploy",
     "start": "next start",
     "lint": "eslint"
   },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "dependencies": {
+    "@next/env": "16.3.6",
+    "@prisma/adapter-better-sqlite3": "7.10.0",
+    "@prisma/client": "7.10.0",
     "bcryptjs": "^3.0.3",
     "next": "16.3.6",
     "next-auth": "^4.24.15",
+    "prisma": "7.10.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "server-only": "0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

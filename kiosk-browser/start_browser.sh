@@ -2,11 +2,14 @@
 
 set -euo pipefail
 
-DEFAULT_URL_FILE="$(cd "$(dirname "$0")" && pwd)/../settings/default_url.txt"
+DATABASE_FILE="${KIOSK_DATABASE_FILE:-$(cd "$(dirname "$0")" && pwd)/../data/kiosk.db}"
 START_URL=""
-if [ -f "$DEFAULT_URL_FILE" ]; then
-  # Read first line
-  START_URL="$(head -n 1 "$DEFAULT_URL_FILE" | tr -d '\r' | xargs)"
+if [ -f "$DATABASE_FILE" ]; then
+  # Read without creating a database; allow startup alongside the first migration.
+  if ! START_URL="$(sqlite3 -readonly -cmd '.timeout 5000' "$DATABASE_FILE" 'SELECT url FROM KioskSettings WHERE id = 1;')"; then
+    echo "Could not read the kiosk database; opening the default page." >&2
+    START_URL=""
+  fi
 fi
 
 # if START_URL is empty, set to default
@@ -32,9 +35,7 @@ CHROMIUM_CMD="chromium \
   --remote-allow-origins=* \
   --no-first-run \
   --noerrdialogs \
-  --disable-infobars \
-  --disable-translate \
-  --disable-features=Translate,TranslateUI"
+  --disable-infobars"
 
 # Hide cursor by moving it off-screen, retry indefinitely until it succeeds.
 (
@@ -45,4 +46,5 @@ CHROMIUM_CMD="chromium \
     sleep 0.25
   done
 ) &
-exec labwc -s "$CHROMIUM_CMD $START_URL"
+printf -v QUOTED_URL '%q' "$START_URL"
+exec labwc -s "$CHROMIUM_CMD $QUOTED_URL"

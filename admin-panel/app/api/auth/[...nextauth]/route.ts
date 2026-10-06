@@ -1,31 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import bcrypt from "bcryptjs";
+import { authenticateAdmin } from "@/lib/admin";
 
 export const runtime = "nodejs";
-
-type AuthInfo = {
-    username: string;
-    passwordHash: string;
-};
-
-const readAuthEnv = (): AuthInfo | null => {
-    const username = process.env.ADMIN_PANEL_USERNAME;
-    let passwordHash = process.env.ADMIN_PANEL_PASSWORD_HASH;
-
-    if (typeof username !== "string" || username.trim() === "") return null;
-    if (typeof passwordHash !== "string" || passwordHash.trim() === "") return null;
-
-    // When running locally using npm, we might get the double escaped string from .env so we fix it here
-    if (passwordHash.startsWith("$$")) {
-        passwordHash = passwordHash.replace(/\$\$/g, "$");
-    }
-
-    return {
-        username: username.trim(),
-        passwordHash: passwordHash.trim(),
-    };
-};
 
 const handler = NextAuth({
     secret: process.env.NEXTAUTH_SECRET,
@@ -42,15 +19,9 @@ const handler = NextAuth({
                 const username = (credentials?.username ?? "").toString();
                 const password = (credentials?.password ?? "").toString();
 
-                const auth = readAuthEnv();
-                if (!auth) return null;
+                if (!username || !password) return null;
 
-                if (username !== auth.username) return null;
-
-                const ok = await bcrypt.compare(password, auth.passwordHash);
-                if (!ok) return null;
-
-                return { id: auth.username, name: auth.username };
+                return authenticateAdmin(username, password);
             },
         }),
     ],

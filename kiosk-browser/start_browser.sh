@@ -32,7 +32,9 @@ CHROMIUM_CMD="chromium \
   --remote-allow-origins=* \
   --no-first-run \
   --noerrdialogs \
-  --disable-infobars"
+  --disable-infobars \
+  --disable-translate \
+  --disable-features=Translate,TranslateUI"
 
 # Hide cursor by moving it off-screen, retry indefinitely until it succeeds.
 (

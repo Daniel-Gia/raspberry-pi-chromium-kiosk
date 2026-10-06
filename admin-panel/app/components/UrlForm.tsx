@@ -8,9 +8,17 @@ const UrlForm = () => {
 
     useEffect(() => {
         const getCurrentUrl = async (): Promise<void> => {
-            const response = await fetch("/api/url", { cache: "no-store" });
-            const data = await response.json();
-            setUrl(typeof data.url === "string" ? data.url : "");
+            try {
+                const response = await fetch("/api/url", { cache: "no-store" });
+                const data = await response.json();
+                if (!response.ok) {
+                    setStatus(data.error ?? "Could not load the kiosk URL.");
+                    return;
+                }
+                setUrl(typeof data.url === "string" ? data.url : "");
+            } catch {
+                setStatus("Could not load the kiosk URL.");
+            }
         };
 
         getCurrentUrl();
@@ -38,17 +46,18 @@ const UrlForm = () => {
 
     return (
         <form onSubmit={onSubmit} className="flex w-full flex-col gap-3">
-            <label className="text-sm font-medium">Kiosk URL</label>
+            <label htmlFor="kiosk-url" className="text-sm font-medium">Kiosk URL</label>
             <input
-                className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-black outline-none focus:border-zinc-500"
+                id="kiosk-url"
+                className="w-full rounded-md border border-zinc-300 bg-white px-3 py-2 text-zinc-900 placeholder:text-zinc-500 outline-none focus:border-zinc-500 focus:ring-2 focus:ring-zinc-500 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100 dark:placeholder:text-zinc-400 dark:focus:border-zinc-400 dark:focus:ring-zinc-400"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 inputMode="url"
             />
-            <button className="rounded-md bg-black px-4 py-2 text-white hover:bg-zinc-800" type="submit">
+            <button className="cursor-pointer rounded-md bg-black px-4 py-2 text-white hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-white dark:focus-visible:outline-zinc-400" type="submit">
                 Save + Open on kiosk
             </button>
-            <div className="min-h-5 text-sm text-zinc-600">{status}</div>
+            <div className="min-h-5 text-sm text-zinc-600 dark:text-zinc-300" role="status">{status}</div>
         </form>
     );
 };

@@ -33,21 +33,13 @@ To test your changes on a Raspberry Pi without building Docker images, you can u
 
     This will:
     
-    - Install Node.js (v20) if missing.
+    - Install Node.js 22 if missing or upgrade an older version (minimum 22.12).
     - Install `npm` dependencies for the Admin Panel.
+    - Install `sqlite3`, prepare `data/`, and generate a persistent session secret in `.env`.
     - Configure the `admin-panel-dev` systemd service to run via `npm run dev` (instead of Docker).
     - Disable the production Docker service.
 
-3.  **Generate Admin Credentials:**
-
-    If you haven't already, generate the login credentials for the Admin Panel:
-
-    ```sh
-    # Usage: sudo ./generate-admin-login.sh <username> <password>
-    sudo ./generate-admin-login.sh admin mypassword
-    ```
-
-4.  **Reboot:**
+3.  **Reboot:**
 
     Reboot the Pi to start the Kiosk Browser and the Admin Panel service:
 
@@ -60,6 +52,5 @@ To test your changes on a Raspberry Pi without building Docker images, you can u
 After rebooting, the Kiosk Browser should launch. You can access the Admin Panel from another computer on the same network:
 
 - URL: `http://<RASPBERRY_PI_IP>`
-- Login: The credentials you generated in step 3.
 
 Since the Admin Panel is running with `npm run dev`, any changes you make to the files in `~/raspberry-pi-chromium-kiosk/admin-panel` on the Pi will be reflected immediately (or after a page refresh).

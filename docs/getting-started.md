@@ -14,10 +14,10 @@
 Run the following command to download and install everything automatically:
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash -s -- <username> <password>
+curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash
 ```
 
-*Replace `<username>` and `<password>` with the credentials you want to use for the Admin Panel.*
+Admin credentials are created in the browser after installation.
 
 Once the script finishes, reboot.
 ```sh

@@ -26,7 +26,7 @@ export default function ShowIpPage() {
 
     return (
         <div className="min-h-screen w-full bg-black text-white relative overflow-hidden flex items-end justify-end p-8">
-            <div className="flex flex-col items-end gap-2 opacity-60">
+            <div className="flex flex-col items-end gap-2">
                 {ips.length > 0 ? (
                     ips.map((item) => (
                         <div key={item.ip} className="text-4xl font-mono font-bold">

@@ -38,10 +38,8 @@ A Raspberry Pi kiosk setup that boots straight into **Chromium in kiosk mode**, 
 2. Run this single command on your Raspberry Pi to install everything:
 
 ```sh
-curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash -s -- <username> <password>
+curl -sSL https://raw.githubusercontent.com/Daniel-Gia/raspberry-pi-chromium-kiosk/main/setup/install.sh | sudo bash
 ```
-
-*Replace `<username>` and `<password>` with your desired admin panel credentials.*
 
 3. Once finished, **reboot** your Pi:
 ```sh

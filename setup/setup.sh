@@ -15,15 +15,24 @@ fi
 
 echo "== Raspberry Pi Chromium Kiosk Project Setup =="
 
-echo "1) Installing required packages (openssl, htpasswd)..."
+echo "1) Installing required packages (openssl, sqlite3)..."
 sudo apt-get update
-sudo apt-get install -y openssl apache2-utils
+sudo apt-get install -y openssl sqlite3
+
+mkdir -p "$REPO_DIR/data"
+ENV_FILE="$REPO_DIR/.env"
+(umask 077; touch "$ENV_FILE")
+# Preserve the session secret across
+if ! grep -q '^NEXTAUTH_SECRET=.' "$ENV_FILE"; then
+    sed -i '/^NEXTAUTH_SECRET=/d' "$ENV_FILE"
+    printf 'NEXTAUTH_SECRET=%s\n' "$(openssl rand -hex 32)" >> "$ENV_FILE"
+fi
+chmod 600 "$ENV_FILE"
 
 if [ "$DEV_MODE" = true ]; then
-    echo "2) Installing Node.js 20 (Dev Mode)..."
-    if ! command -v node &> /dev/null; then
-        # Install Node.js 20.x
-        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+    echo "2) Installing Node.js 22 (Dev Mode)..."
+    if ! command -v node &> /dev/null || ! node -e 'const [major, minor] = process.versions.node.split(".").map(Number); process.exit(major > 22 || (major === 22 && minor >= 12) ? 0 : 1)'; then
+        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
         sudo apt-get install -y nodejs
     else
         echo "Node.js is already installed."
@@ -41,24 +50,12 @@ else
 
     echo "4) Pulling latest Docker images..."
 
-    # Ensure .env file is used for Docker Compose
-    if [ -f "$REPO_DIR/.env" ]; then
-      echo "Using .env file for Docker Compose."
-      export $(grep -v '^#' "$REPO_DIR/.env" | xargs) # export variables from .env
-      echo "IMAGE_TAG being used: $IMAGE_TAG"
-    else
-      echo ".env file not found. Using default 'latest' tag for Docker Compose."
-    fi
-
     docker compose --env-file "$REPO_DIR/.env" -f "$REPO_DIR/docker-compose.yml" pull
 fi
 
 echo "5) Running kiosk-browser setup..."
 chmod +x "$REPO_DIR/kiosk-browser/setup.sh"
 "$REPO_DIR/kiosk-browser/setup.sh"
-
-echo "6) Making generate-admin-login.sh executable..."
-chmod +x "$REPO_DIR/setup/generate-admin-login.sh"
 
 if [ "$DEV_MODE" = true ]; then
     echo "7) Installing admin-panel dev service (npm)..."
@@ -102,6 +99,5 @@ else
 fi
 
 echo "-------------------------------------------------------"
-echo "Done! Now please run the generate-admin-login.sh script to create admin login credentials."
-echo "After that reboot the system to start the kiosk browser. (sudo reboot)"
+echo "Done! Reboot your Raspberry Pi to start the kiosk browser
 echo "-------------------------------------------------------"

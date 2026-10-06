@@ -7,6 +7,8 @@ Wants=network-online.target
 Type=simple
 WorkingDirectory=@REPO_DIR@/admin-panel
 Environment=PORT=80
+Environment="DATABASE_URL=file:@REPO_DIR@/data/kiosk.db"
+Environment=CHROME_REMOTE_URL=http://127.0.0.1:9222
 EnvironmentFile=@REPO_DIR@/.env
 # Run Next.js in dev mode on port 80, accessible from network
 ExecStart=/usr/bin/npm run dev -- -p 80 -H 0.0.0.0

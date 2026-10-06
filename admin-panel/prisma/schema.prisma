@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model KioskSettings {
+  id  Int    @id @default(1)
+  url String
+}
+
+model Admin {
+  id           Int    @id @default(1)
+  username     String
+  passwordHash String
+}

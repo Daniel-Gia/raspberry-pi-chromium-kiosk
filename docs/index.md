@@ -8,7 +8,7 @@ This project turns a Raspberry Pi into a **Chromium kiosk** that boots straight 
 
 - **Kiosk browser service** that starts on boot and launches Chromium in kiosk mode.
 - **Admin panel** to authenticate and update the kiosk URL.
-- **Simple settings file** (`settings/default_url.txt`) that both the kiosk and the admin panel rely on.
+- **SQLite database**, managed by Prisma, for the kiosk URL and admin account. Create your login in the browser on first use.
 
 ## Where to go next
 

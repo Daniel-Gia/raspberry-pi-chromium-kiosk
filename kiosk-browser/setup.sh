@@ -14,6 +14,13 @@ echo "1. Installing required packages..."
 sudo apt update && sudo apt upgrade -y
 sudo apt install --no-install-recommends labwc chromium wlrctl curl grep -y
 
+# Disable Chromium translation popups
+echo "Disabling Chromium translation popups..."
+
+sudo mkdir -p /etc/chromium/policies/managed
+printf '{"TranslateEnabled":false}\n' | \
+    sudo tee /etc/chromium/policies/managed/translate.json > /dev/null
+
 echo "2. Configuring Raspberry Pi settings..."
 # Set up auto login
 sudo raspi-config nonint do_boot_behaviour B2
@@ -40,6 +47,7 @@ sudo sed \
 
 sudo systemctl daemon-reload
 sudo systemctl enable kiosk-browser.service
+
 echo "-------------------------------------------------------"
 echo "Kiosk browser setup complete!"
 echo "-------------------------------------------------------"

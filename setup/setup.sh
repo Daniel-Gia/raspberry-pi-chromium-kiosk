@@ -99,5 +99,5 @@ else
 fi
 
 echo "-------------------------------------------------------"
-echo "Done! Reboot your Raspberry Pi to start the kiosk browser
+echo "Done! Reboot your Raspberry Pi to start the kiosk browser"
 echo "-------------------------------------------------------"
